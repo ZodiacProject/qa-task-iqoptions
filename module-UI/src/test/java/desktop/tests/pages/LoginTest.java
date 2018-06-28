@@ -1,6 +1,6 @@
 package desktop.tests.pages;
 
-import com.iqoptions.data.entity.role.UserData;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.*;
 import org.junit.jupiter.params.provider.*;
@@ -16,7 +16,7 @@ class LoginTest {
     @BeforeEach
     void before() {
         open("https://iqoption.com/ru/login");
-        refresh();
+        refresh(); // обновление страницы, чтобы обойти alert
     }
 
     private static Stream<Arguments> testData() {
@@ -34,23 +34,24 @@ class LoginTest {
     @DisplayName("Checking positive at login")
     void checkLoginPositive() {
         runLogin(
-                new UserData().getEmail(),
-                new UserData().getPass()
+                "zavaxucid@99pubblicita.com",
+                "302bis"
         );
         $(".SidebarProfile__UserEmail").waitUntil(exist.because("Failed authorization user in the account"), 5000);
     }
 
-    @ParameterizedTest(name = "Checking negative scenario: Email: {0}, pass: {1}, errorMsg: {2}")
+    @ParameterizedTest(name = "Checking negative scenario: Email: {0}, pass: {1}")
     @MethodSource("testData")
-    void checkLoginNegative(String email, String pass, String expectedErrorMsg) {
-        runLogin(email, pass);
+    void checkLoginNegative(String email, String password, String expectedErrorMsg) {
+        runLogin(email, password);
         $(".SidebarLogin").$$("span").findBy(text(expectedErrorMsg))
                 .shouldBe(visible.because("Autorization error: not found selector by name " + expectedErrorMsg));
     }
 
-    private void runLogin(String email, String pass) {
+    @Step("Input email/password")
+    private void runLogin(String email, String password) {
         $("input[name='email']").setValue(email);
-        $("input[name='password']").setValue(pass);
+        $("input[name='password']").setValue(password);
         $(".SidebarLogin__submit").click();
     }
 
