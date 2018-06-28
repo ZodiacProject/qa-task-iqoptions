@@ -1,4 +1,4 @@
-# test task by iq-options
+# IQ-options
 
 Тесты написаны с использованием следующих технологий: Selenide + Junit5 + Allure + Maven
 
