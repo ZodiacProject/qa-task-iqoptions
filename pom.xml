@@ -11,7 +11,6 @@
     <modules>
         <module>module-api</module>
         <module>module-UI</module>
-        <module>data-entity</module>
     </modules>
     <developers>
         <developer>
