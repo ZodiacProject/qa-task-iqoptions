@@ -90,7 +90,7 @@ public class ApiLoginTest {
 
     private void checkResponseStatus(int expectedStatus, int actualStatus) {
         System.out.println("Response actual code: " + actualStatus);
-        assertEquals(expectedStatus, actualStatus, "Response code: " + expectedStatus);
+        assertEquals(expectedStatus, actualStatus, "Response code:");
     }
 
 }
